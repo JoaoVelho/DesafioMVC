@@ -15,5 +15,13 @@ namespace DesafioMVC.Controllers
         public IActionResult NewCategory() {
             return View();
         }
+
+        public IActionResult Businesses() {
+            return View();
+        }
+
+        public IActionResult NewBusiness() {
+            return View();
+        }
     }
 }
