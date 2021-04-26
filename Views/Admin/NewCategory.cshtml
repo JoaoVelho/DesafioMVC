@@ -1,0 +1,17 @@
+@model DesafioMVC.DTO.CategoryDTO
+@{
+    Layout = "_LayoutAdmin";
+}
+<h2>Nova categoria</h2>
+<hr>
+<div class="card">
+    <div class="card-body">    
+        <form class="form-horizontal" asp-controller="Categories" asp-action="Save" method="POST">
+            <input type="hidden" asp-for="Id" value="0">
+            <label asp-for="Name"><strong>Nome</strong></label>
+            <input type="text" asp-for="Name" class="form-control" placeholder="Nome da categoria">
+            <span asp-validation-for="Name"></span><br>
+            <button class="btn btn-success">Cadastrar</button>
+        </form>
+    </div>
+</div>

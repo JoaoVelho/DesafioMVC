@@ -7,5 +7,13 @@ namespace DesafioMVC.Controllers
         public IActionResult Index() {
             return View();
         }
+
+        public IActionResult Categories() {
+            return View();
+        }
+
+        public IActionResult NewCategory() {
+            return View();
+        }
     }
 }
