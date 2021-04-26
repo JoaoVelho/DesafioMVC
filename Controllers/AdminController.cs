@@ -1,15 +1,24 @@
+using System.Linq;
+using DesafioMVC.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioMVC.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly ApplicationDbContext _database;
+
+        public AdminController(ApplicationDbContext database) {
+            _database = database;
+        }
+
         public IActionResult Index() {
             return View();
         }
 
         public IActionResult Categories() {
-            return View();
+            var categories = _database.Categories.ToList();
+            return View(categories);
         }
 
         public IActionResult NewCategory() {
