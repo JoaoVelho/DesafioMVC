@@ -26,7 +26,8 @@ namespace DesafioMVC.Controllers
         }
 
         public IActionResult Businesses() {
-            return View();
+            var businesses = _database.Businesses.ToList();
+            return View(businesses);
         }
 
         public IActionResult NewBusiness() {
