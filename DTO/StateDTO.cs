@@ -7,7 +7,9 @@ namespace DesafioMVC.DTO
         [Required]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage="UF é obrigatório!")]
+        [StringLength(2, ErrorMessage="UF inválido!")]
+        [MinLength(2, ErrorMessage="UF inválido!")]
         public string Uf { get; set; }
 
         [Required(ErrorMessage="Nome do estado é obrigatório!")]

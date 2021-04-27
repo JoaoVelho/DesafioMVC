@@ -38,5 +38,9 @@ namespace DesafioMVC.Controllers
             var states = _database.States.ToList();
             return View(states);
         }
+
+        public IActionResult NewState() {
+            return View();
+        }
     }
 }
