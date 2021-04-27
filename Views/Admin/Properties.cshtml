@@ -1,0 +1,61 @@
+@model IEnumerable<DesafioMVC.Models.Property>
+@{
+    Layout = "_LayoutAdmin";
+}
+<div class="card">
+    <div class="card-header card-header-primary">
+        <div class="row">
+            <div class="col">
+                <h2 class="card-title">Imóveis</h2> 
+            </div>
+            <div class="col align-self-center text-right">
+                <a asp-controller="Admin" asp-action="NewProperty" 
+                    class="btn btn-secondary" 
+                >
+                    Criar novo imóvel
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="text-primary">
+                    <tr>
+                        <th>Id</th>
+                        <th>Categoria</th>
+                        <th>Negócio</th>
+                        <th>Nº quartos</th>
+                        <th>Endereço</th>
+                        <th>Bairro</th>
+                        <th>Município</th>
+                        <th>Estado</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var property in Model) {
+                        <tr>
+                            <td>@property.Id</td>
+                            <td>@property.Category.Name</td>
+                            <td>@property.Business.Name</td>
+                            <td>@property.Rooms</td>
+                            <td>@property.Address</td>
+                            <td>@property.District.Name</td>
+                            <td>@property.District.City.Name</td>
+                            <td>@property.District.City.State.Uf</td>
+                            <td>
+                                <a class="btn btn-success" href="/Admin/EditProperty/@property.Id">Editar</a> 
+
+                                <form asp-controller="Properties" asp-action="Delete" method="POST" style="display: inline;">
+                                    <input type="hidden" name="id" id="id" value="@property.Id">
+                                    <button class="btn btn-danger">Deletar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

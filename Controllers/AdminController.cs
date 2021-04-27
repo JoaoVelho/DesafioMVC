@@ -65,5 +65,14 @@ namespace DesafioMVC.Controllers
             ViewBag.States = _database.States.ToList();
             return View();
         }
+
+        public IActionResult Properties() {
+            var properties = _database.Properties
+                .Include(prop => prop.Category)
+                .Include(prop => prop.Business)
+                .Include(prop => prop.District.City.State)
+                .ToList();
+            return View(properties);
+        }
     }
 }
