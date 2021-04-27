@@ -1,0 +1,51 @@
+@model IEnumerable<DesafioMVC.Models.City>
+@{
+    Layout = "_LayoutAdmin";
+}
+<div class="card">
+    <div class="card-header card-header-primary">
+        <div class="row">
+            <div class="col">
+                <h2 class="card-title">Municípios</h2> 
+            </div>
+            <div class="col align-self-center text-right">
+                <a asp-controller="Admin" asp-action="NewCity" 
+                    class="btn btn-secondary" 
+                >
+                    Criar novo município
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="text-primary">
+                    <tr>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Estado</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var city in Model) {
+                        <tr>
+                            <td>@city.Id</td>
+                            <td>@city.Name</td>
+                            <td>@city.State.Uf</td>
+                            <td>
+                                <a class="btn btn-success" href="/Admin/EditCity/@city.Id">Editar</a> 
+
+                                <form asp-controller="Cities" asp-action="Delete" method="POST" style="display: inline;">
+                                    <input type="hidden" name="id" id="id" value="@city.Id">
+                                    <button class="btn btn-danger">Deletar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

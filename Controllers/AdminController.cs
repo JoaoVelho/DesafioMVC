@@ -1,6 +1,7 @@
 using System.Linq;
 using DesafioMVC.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DesafioMVC.Controllers
 {
@@ -41,6 +42,11 @@ namespace DesafioMVC.Controllers
 
         public IActionResult NewState() {
             return View();
+        }
+
+        public IActionResult Cities() {
+            var cities = _database.Cities.Include(city => city.State).ToList();
+            return View(cities);
         }
     }
 }
