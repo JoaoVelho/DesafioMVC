@@ -9,12 +9,15 @@
     <div class="card-body">    
         <form class="form-horizontal" asp-controller="States" asp-action="Save" method="POST">
             <input type="hidden" asp-for="Id" value="0">
+
             <label asp-for="Uf"><strong>UF</strong></label>
             <select asp-for="Uf" class="form-control" id="uf"></select>
             <span asp-validation-for="Uf" class="text-danger"></span><br>
+
             <label asp-for="Name"><strong>Estado</strong></label>
             <input type="text" asp-for="Name" readonly class="form-control" placeholder="Nome do estado" id="state">
             <span asp-validation-for="Name" class="text-danger"></span><br>
+            
             <button class="btn btn-success">Cadastrar</button>
         </form>
     </div>
