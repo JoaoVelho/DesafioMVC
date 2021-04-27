@@ -33,5 +33,10 @@ namespace DesafioMVC.Controllers
         public IActionResult NewBusiness() {
             return View();
         }
+
+        public IActionResult States() {
+            var states = _database.States.ToList();
+            return View(states);
+        }
     }
 }

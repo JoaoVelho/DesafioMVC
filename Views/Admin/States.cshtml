@@ -1,0 +1,51 @@
+@model IEnumerable<DesafioMVC.Models.State>
+@{
+    Layout = "_LayoutAdmin";
+}
+<div class="card">
+    <div class="card-header card-header-primary">
+        <div class="row">
+            <div class="col">
+                <h2 class="card-title">Estados</h2> 
+            </div>
+            <div class="col align-self-center text-right">
+                <a asp-controller="Admin" asp-action="NewState" 
+                    class="btn btn-secondary" 
+                >
+                    Criar novo estado
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="text-primary">
+                    <tr>
+                        <th>Id</th>
+                        <th>UF</th>
+                        <th>Nome</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var state in Model) {
+                        <tr>
+                            <td>@state.Id</td>
+                            <td>@state.Uf</td>
+                            <td>@state.Name</td>
+                            <td>
+                                <a class="btn btn-success" href="/Admin/EditState/@state.Id">Editar</a> 
+
+                                <form asp-controller="States" asp-action="Delete" method="POST" style="display: inline;">
+                                    <input type="hidden" name="id" id="id" value="@state.Id">
+                                    <button class="btn btn-danger">Deletar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
