@@ -56,9 +56,14 @@ namespace DesafioMVC.Controllers
 
         public IActionResult Districts() {
             var districts = _database.Districts
-                .Include(district => district.City)
+                .Include(district => district.City.State)
                 .ToList();
             return View(districts);
+        }
+
+        public IActionResult NewDistrict() {
+            ViewBag.States = _database.States.ToList();
+            return View();
         }
     }
 }
