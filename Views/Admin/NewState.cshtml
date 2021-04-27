@@ -20,7 +20,7 @@
     </div>
 </div>
 <script>
-    async function ufsFetch() {
+    async function statesFetch() {
         const res = await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome")
         const states = await res.json()
 
@@ -46,5 +46,5 @@
         })
     }
 
-    ufsFetch()
+    statesFetch()
 </script>

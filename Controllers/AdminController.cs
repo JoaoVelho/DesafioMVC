@@ -48,5 +48,10 @@ namespace DesafioMVC.Controllers
             var cities = _database.Cities.Include(city => city.State).ToList();
             return View(cities);
         }
+
+        public IActionResult NewCity() {
+            ViewBag.States = _database.States.ToList();
+            return View();
+        }
     }
 }
