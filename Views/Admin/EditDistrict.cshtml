@@ -31,24 +31,9 @@
     </div>
 </div>
 <script>
-    async function citiesFetch() {
+    function citiesFetch() {
         const stateSelect = document.getElementById("state")
         const citySelect = document.getElementById("city")
-
-        @* if (stateSelect.value !== "0") {
-            const stateId = stateSelect.value
-
-            const res = await fetch(`https://localhost:5001/Cities/CitiesByState/${stateId}`)
-            const cities = await res.json()
-
-            let citySelectOptions = '<option value="0">Selecione um município</option>'
-            cities.forEach(city => {
-                let option = `<option value="${city.id}">${city.name}</option>`
-                citySelectOptions = citySelectOptions.concat(option)
-            })
-
-            citySelect.innerHTML = citySelectOptions
-        } *@
 
         stateSelect.addEventListener("change", async event => {
             const stateId = event.target.value
