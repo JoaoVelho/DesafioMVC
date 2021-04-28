@@ -35,8 +35,6 @@
                             <td>@state.Uf</td>
                             <td>@state.Name</td>
                             <td>
-                                <a class="btn btn-success" href="/Admin/EditState/@state.Id">Editar</a> 
-
                                 <form asp-controller="States" asp-action="Delete" method="POST" style="display: inline;">
                                     <input type="hidden" name="id" id="id" value="@state.Id">
                                     <button class="btn btn-danger">Deletar</button>
