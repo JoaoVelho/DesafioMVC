@@ -1,0 +1,96 @@
+@model DesafioMVC.DTO.PropertyDTO
+@{
+    Layout = "_LayoutAdmin";
+}
+<div class="card">
+    <div class="card-header card-header-primary">
+        <h2 class="card-title">Novo bairro</h2>
+    </div>
+    <div class="card-body">    
+        <form class="form-horizontal" asp-controller="Properties" asp-action="Save" method="POST">
+            <input type="hidden" asp-for="Id" value="0">
+
+            <label asp-for="CategoryId"><strong>Categoria</strong></label>
+            <select asp-for="CategoryId" class="form-control" asp-items='@(new SelectList(@ViewBag.Categories, "Id", "Name"))'>
+                <option value="0" selected>Selecione uma categoria</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span><br>
+
+            <label asp-for="BusinessId"><strong>Negócio</strong></label>
+            <select asp-for="BusinessId" class="form-control" asp-items='@(new SelectList(@ViewBag.Businesses, "Id", "Name"))'>
+                <option value="0" selected>Selecione um negócio</option>
+            </select>
+            <span asp-validation-for="BusinessId" class="text-danger"></span><br>
+
+            <label><strong>UF</strong></label>
+            <select class="form-control" id="state" asp-items='@(new SelectList(@ViewBag.States, "Id", "Uf"))'>
+                <option value="" selected>Selecione um estado</option>
+            </select><br>
+
+            <label><strong>Município</strong></label>
+            <select class="form-control" id="city">
+                <option value="" selected>Selecione um município</option>
+            </select><br>
+
+            <label asp-for="DistrictId"><strong>Bairro</strong></label>
+            <select asp-for="DistrictId" class="form-control" id="district">
+                <option value="0" selected>Selecione um bairro</option>
+            </select>
+            <span asp-validation-for="DistrictId" class="text-danger"></span><br>
+
+            <label asp-for="Address"><strong>Endereço</strong></label>
+            <input type="text" asp-for="Address" class="form-control" placeholder="Endereço completo">
+            <span asp-validation-for="Address" class="text-danger"></span><br>
+
+            <label asp-for="Rooms"><strong>Quartos</strong></label>
+            <input type="number" asp-for="Rooms" class="form-control" placeholder="Número de quartos">
+            <span asp-validation-for="Rooms" class="text-danger"></span><br>
+
+            <button class="btn btn-success">Cadastrar</button>
+        </form>
+    </div>
+</div>
+<script>
+    function citiesFetch() {
+        const stateSelect = document.getElementById("state")
+        const citySelect = document.getElementById("city")
+
+        stateSelect.addEventListener("change", async event => {
+            const stateId = event.target.value
+
+            const res = await fetch(`https://localhost:5001/Cities/CitiesByState/${stateId}`)
+            const cities = await res.json()
+
+            let citySelectOptions = '<option value="0">Selecione um município</option>'
+            cities.forEach(city => {
+                let option = `<option value="${city.id}">${city.name}</option>`
+                citySelectOptions = citySelectOptions.concat(option)
+            })
+
+            citySelect.innerHTML = citySelectOptions
+        })
+    }
+
+    function districtsFetch() {
+        const citySelect = document.getElementById("city")
+        const districtSelect = document.getElementById("district")
+
+        citySelect.addEventListener("change", async event => {
+            const cityId = event.target.value
+
+            const res = await fetch(`https://localhost:5001/Districts/DistrictsByState/${cityId}`)
+            const districts = await res.json()
+
+            let districtSelectOptions = '<option value="0">Selecione um bairro</option>'
+            districts.forEach(district => {
+                let option = `<option value="${district.id}">${district.name}</option>`
+                districtSelectOptions = districtSelectOptions.concat(option)
+            })
+
+            districtSelect.innerHTML = districtSelectOptions
+        })
+    }
+
+    citiesFetch()
+    districtsFetch()
+</script>

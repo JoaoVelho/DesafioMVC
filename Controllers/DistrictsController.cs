@@ -3,6 +3,7 @@ using DesafioMVC.Data;
 using DesafioMVC.DTO;
 using DesafioMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DesafioMVC.Controllers
 {
@@ -12,6 +13,14 @@ namespace DesafioMVC.Controllers
 
         public DistrictsController(ApplicationDbContext database) {
             _database = database;
+        }
+
+        public IActionResult DistrictsByState(int id) {
+            var districts = _database.Districts
+                .Include(district => district.City)
+                .Where(district => district.City.Id == id)
+                .ToList();
+            return Ok(districts);
         }
 
         [HttpPost]

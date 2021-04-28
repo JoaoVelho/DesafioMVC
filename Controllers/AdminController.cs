@@ -1,5 +1,6 @@
 using System.Linq;
 using DesafioMVC.Data;
+using DesafioMVC.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,14 @@ namespace DesafioMVC.Controllers
 
         public IActionResult NewCategory() {
             return View();
+        }
+
+        public IActionResult EditCategory(int id) {
+            var category = _database.Categories.First(cat => cat.Id == id);
+            CategoryDTO categoryView = new CategoryDTO();
+            categoryView.Id = category.Id;
+            categoryView.Name = category.Name;
+            return View(categoryView);
         }
 
         public IActionResult Businesses() {
@@ -73,6 +82,13 @@ namespace DesafioMVC.Controllers
                 .Include(prop => prop.District.City.State)
                 .ToList();
             return View(properties);
+        }
+
+        public IActionResult NewProperty() {
+            ViewBag.Categories = _database.Categories.ToList();
+            ViewBag.Businesses = _database.Businesses.ToList();
+            ViewBag.States = _database.States.ToList();
+            return View();
         }
     }
 }
