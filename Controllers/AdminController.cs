@@ -111,5 +111,29 @@ namespace DesafioMVC.Controllers
             ViewBag.States = _database.States.ToList();
             return View();
         }
+
+        public IActionResult EditProperty(int id) {
+            var property = _database.Properties
+                .Include(prop => prop.Category)
+                .Include(prop => prop.Business)
+                .Include(prop => prop.District.City.State)
+                .First(prop => prop.Id == id);
+            PropertyDTO propertyView = new PropertyDTO();
+            propertyView.Id = property.Id;
+            propertyView.CategoryId = property.Category.Id;
+            propertyView.BusinessId = property.Business.Id;
+            propertyView.StateId = property.District.City.State.Id;
+            propertyView.CityId = property.District.City.Id;
+            propertyView.DistrictId = property.District.Id;
+            propertyView.Address = property.Address;
+            propertyView.Rooms = property.Rooms;
+
+            ViewBag.Categories = _database.Categories.ToList();
+            ViewBag.Businesses = _database.Businesses.ToList();
+            ViewBag.States = _database.States.ToList();
+            ViewBag.CitiesByState = _database.Cities.Where(city => city.State.Id == propertyView.StateId).ToList();
+            ViewBag.DistrictsByCity = _database.Districts.Where(dist => dist.City.Id == propertyView.CityId).ToList();
+            return View(propertyView);
+        }
     }
 }

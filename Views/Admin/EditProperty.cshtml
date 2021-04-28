@@ -4,11 +4,11 @@
 }
 <div class="card">
     <div class="card-header card-header-primary">
-        <h2 class="card-title">Novo imóvel</h2>
+        <h2 class="card-title">Alterar imóvel</h2>
     </div>
     <div class="card-body">    
-        <form class="form-horizontal" asp-controller="Properties" asp-action="Save" method="POST">
-            <input type="hidden" asp-for="Id" value="0">
+        <form class="form-horizontal" asp-controller="Properties" asp-action="Edit" method="POST">
+            <input type="hidden" asp-for="Id">
 
             <label asp-for="CategoryId"><strong>Categoria</strong></label>
             <select asp-for="CategoryId" class="form-control" asp-items='@(new SelectList(@ViewBag.Categories, "Id", "Name"))'>
@@ -29,13 +29,13 @@
             <span asp-validation-for="StateId" class="text-danger"></span><br>
 
             <label asp-for="CityId"><strong>Município</strong></label>
-            <select asp-for="CityId" class="form-control" id="city">
+            <select asp-for="CityId" class="form-control" id="city" asp-items='@(new SelectList(@ViewBag.CitiesByState, "Id", "Name"))'>
                 <option value="0" selected>Selecione um município</option>
             </select>
             <span asp-validation-for="CityId" class="text-danger"></span><br>
 
             <label asp-for="DistrictId"><strong>Bairro</strong></label>
-            <select asp-for="DistrictId" class="form-control" id="district">
+            <select asp-for="DistrictId" class="form-control" id="district" asp-items='@(new SelectList(@ViewBag.DistrictsByCity, "Id", "Name"))'>
                 <option value="0" selected>Selecione um bairro</option>
             </select>
             <span asp-validation-for="DistrictId" class="text-danger"></span><br>
@@ -48,7 +48,7 @@
             <input type="number" asp-for="Rooms" class="form-control" placeholder="Número de quartos">
             <span asp-validation-for="Rooms" class="text-danger"></span><br>
 
-            <button class="btn btn-success">Cadastrar</button>
+            <button class="btn btn-success">Alterar</button>
         </form>
     </div>
 </div>
@@ -56,23 +56,8 @@
     const citySelect = document.getElementById("city")
     const districtSelect = document.getElementById("district")
 
-    async function citiesFetch() {
+    function citiesFetch() {
         const stateSelect = document.getElementById("state")
-
-        if (stateSelect.value !== "0") {
-            const stateId = stateSelect.value
-
-            const res = await fetch(`https://localhost:5001/Cities/CitiesByState/${stateId}`)
-            const cities = await res.json()
-
-            let citySelectOptions = '<option value="0">Selecione um município</option>'
-            cities.forEach(city => {
-                let option = `<option value="${city.id}">${city.name}</option>`
-                citySelectOptions = citySelectOptions.concat(option)
-            })
-
-            citySelect.innerHTML = citySelectOptions
-        }
 
         stateSelect.addEventListener("change", async event => {
             const stateId = event.target.value
