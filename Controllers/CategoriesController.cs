@@ -1,3 +1,4 @@
+using System.Linq;
 using DesafioMVC.Data;
 using DesafioMVC.DTO;
 using DesafioMVC.Models;
@@ -23,6 +24,18 @@ namespace DesafioMVC.Controllers
                 return RedirectToAction("Categories", "Admin");
             } else {
                 return View("../Admin/NewCategory");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Edit(CategoryDTO tempCategory) {
+            if (ModelState.IsValid) {
+                var category = _database.Categories.First(cat => cat.Id == tempCategory.Id);
+                category.Name = tempCategory.Name;
+                _database.SaveChanges();
+                return RedirectToAction("Categories", "Admin");
+            } else {
+                return View("../Admin/EditCategory");
             }
         }
     }
