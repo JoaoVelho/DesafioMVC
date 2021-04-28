@@ -16,6 +16,14 @@ namespace DesafioMVC.DTO
         [Range(1, Int32.MaxValue, ErrorMessage="Negócio é obrigatório!")]
         public int BusinessId { get; set; }
 
+        [Required(ErrorMessage="UF é obrigatório!")]
+        [Range(1, Int32.MaxValue, ErrorMessage="UF é obrigatório!")]
+        public int StateId { get; set; }
+
+        [Required(ErrorMessage="Município é obrigatório!")]
+        [Range(1, Int32.MaxValue, ErrorMessage="Município é obrigatório!")]
+        public int CityId { get; set; }
+
         [Required(ErrorMessage="Bairro é obrigatório!")]
         [Range(1, Int32.MaxValue, ErrorMessage="Bairro é obrigatório!")]
         public int DistrictId { get; set; }

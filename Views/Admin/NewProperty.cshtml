@@ -22,15 +22,17 @@
             </select>
             <span asp-validation-for="BusinessId" class="text-danger"></span><br>
 
-            <label><strong>UF</strong></label>
-            <select class="form-control" id="state" asp-items='@(new SelectList(@ViewBag.States, "Id", "Uf"))'>
-                <option value="" selected>Selecione um estado</option>
-            </select><br>
+            <label asp-for="StateId"><strong>UF</strong></label>
+            <select asp-for="StateId" class="form-control" id="state" asp-items='@(new SelectList(@ViewBag.States, "Id", "Uf"))'>
+                <option value="0" selected>Selecione um estado</option>
+            </select>
+            <span asp-validation-for="StateId" class="text-danger"></span><br>
 
-            <label><strong>Município</strong></label>
-            <select class="form-control" id="city">
-                <option value="" selected>Selecione um município</option>
-            </select><br>
+            <label asp-for="CityId"><strong>Município</strong></label>
+            <select asp-for="CityId" class="form-control" id="city">
+                <option value="0" selected>Selecione um município</option>
+            </select>
+            <span asp-validation-for="CityId" class="text-danger"></span><br>
 
             <label asp-for="DistrictId"><strong>Bairro</strong></label>
             <select asp-for="DistrictId" class="form-control" id="district">
@@ -51,9 +53,24 @@
     </div>
 </div>
 <script>
-    function citiesFetch() {
+    async function citiesFetch() {
         const stateSelect = document.getElementById("state")
         const citySelect = document.getElementById("city")
+
+        if (stateSelect.value !== "0") {
+            const stateId = stateSelect.value
+
+            const res = await fetch(`https://localhost:5001/Cities/CitiesByState/${stateId}`)
+            const cities = await res.json()
+
+            let citySelectOptions = '<option value="0">Selecione um município</option>'
+            cities.forEach(city => {
+                let option = `<option value="${city.id}">${city.name}</option>`
+                citySelectOptions = citySelectOptions.concat(option)
+            })
+
+            citySelect.innerHTML = citySelectOptions
+        }
 
         stateSelect.addEventListener("change", async event => {
             const stateId = event.target.value
