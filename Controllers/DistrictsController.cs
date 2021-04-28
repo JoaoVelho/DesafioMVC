@@ -37,5 +37,20 @@ namespace DesafioMVC.Controllers
                 return View("../Admin/NewDistrict");
             }
         }
+
+        [HttpPost]
+        public IActionResult Edit(DistrictDTO tempDistrict) {
+            if (ModelState.IsValid) {
+                var district = _database.Districts.First(dist => dist.Id == tempDistrict.Id);
+                district.Name = tempDistrict.Name;
+                district.City = _database.Cities.First(city => city.Id == tempDistrict.CityId);
+                _database.SaveChanges();
+                return RedirectToAction("Districts", "Admin");
+            } else {
+                ViewBag.States = _database.States.ToList();
+                ViewBag.CitiesByState = _database.Cities.Where(city => city.State.Id == tempDistrict.StateId).ToList();
+                return View("../Admin/EditDistrict");
+            }
+        }
     }
 }

@@ -83,6 +83,19 @@ namespace DesafioMVC.Controllers
             return View();
         }
 
+        public IActionResult EditDistrict(int id) {
+            var district = _database.Districts.Include(dist => dist.City.State).First(dist => dist.Id == id);
+            DistrictDTO districtView = new DistrictDTO();
+            districtView.Id = district.Id;
+            districtView.Name = district.Name;
+            districtView.CityId = district.City.Id;
+            districtView.StateId = district.City.State.Id;
+
+            ViewBag.States = _database.States.ToList();
+            ViewBag.CitiesByState = _database.Cities.Where(city => city.State.Id == districtView.StateId).ToList();
+            return View(districtView);
+        }
+
         public IActionResult Properties() {
             var properties = _database.Properties
                 .Include(prop => prop.Category)
