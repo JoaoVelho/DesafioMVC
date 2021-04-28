@@ -44,6 +44,14 @@ namespace DesafioMVC.Controllers
             return View();
         }
 
+        public IActionResult EditBusiness(int id) {
+            var business = _database.Businesses.First(bus => bus.Id == id);
+            BusinessDTO businessView = new BusinessDTO();
+            businessView.Id = business.Id;
+            businessView.Name = business.Name;
+            return View(businessView);
+        }
+
         public IActionResult States() {
             var states = _database.States.ToList();
             return View(states);
