@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using DesafioMVC.Data;
 using DesafioMVC.DTO;
@@ -37,6 +38,20 @@ namespace DesafioMVC.Controllers
             } else {
                 return View("../Admin/EditCategory");
             }
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id) {
+            if (id > 0) {
+                try {
+                    var category = _database.Categories.First(cat => cat.Id == id);
+                    _database.Remove(category);
+                    _database.SaveChanges();
+                } catch (Exception) {
+                    return View("../Admin/DeleteError");
+                }
+            }
+            return RedirectToAction("Categories", "Admin");
         }
     }
 }

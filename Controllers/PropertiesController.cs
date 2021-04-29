@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using DesafioMVC.Data;
 using DesafioMVC.DTO;
@@ -53,6 +54,20 @@ namespace DesafioMVC.Controllers
                 ViewBag.DistrictsByCity = _database.Districts.Where(dist => dist.City.Id == tempProperty.CityId).ToList();
                 return View("../Admin/EditProperty");
             }
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id) {
+            if (id > 0) {
+                try {
+                    var property = _database.Properties.First(prop => prop.Id == id);
+                    _database.Remove(property);
+                    _database.SaveChanges();
+                } catch (Exception) {
+                    return View("../Admin/DeleteError");
+                }
+            }
+            return RedirectToAction("Properties", "Admin");
         }
     }
 }

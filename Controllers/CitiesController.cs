@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using DesafioMVC.Data;
 using DesafioMVC.DTO;
@@ -36,6 +37,20 @@ namespace DesafioMVC.Controllers
                 ViewBag.States = _database.States.ToList();
                 return View("../Admin/NewCity");
             }
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id) {
+            if (id > 0) {
+                try {
+                    var city = _database.Cities.First(city => city.Id == id);
+                    _database.Remove(city);
+                    _database.SaveChanges();
+                } catch (Exception) {
+                    return View("../Admin/DeleteError");
+                }
+            }
+            return RedirectToAction("Cities", "Admin");
         }
     }
 }
