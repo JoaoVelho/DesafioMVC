@@ -1,6 +1,31 @@
+@model IEnumerable<DesafioMVC.Models.Property>
 @{
     Layout = "_LayoutAdmin";
 }
+
+<script>
+    $(document).ready(function () {
+        $('#property').DataTable({
+            "info": false,
+            "language": {
+                "lengthMenu": "Mostrando _MENU_ registros por página",
+                "zeroRecords": "Desculpa, nada encontrado",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "Nenhum registro disponível",
+                "search": "Buscar:",
+                "paginate": {
+                    "first": "Primeiro",
+                    "last": "Último",
+                    "next": "Próximo",
+                    "previous": "Anterior"
+                }
+            },
+            "dom": "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6 text-right'l>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        });
+    });
+</script>
 
 <div class="container-fluid">
     <div class="row">
@@ -104,6 +129,51 @@
                         <i class="material-icons">local_offer</i>
                         <a asp-controller="Admin" asp-action="Districts">Ver todos</a>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Properties Table -->
+    <div class="row">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <div class="row">
+                    <div class="col">
+                        <h2 class="card-title">Imóveis</h2> 
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table" id="property">
+                        <thead class="text-primary">
+                            <tr>
+                                <th>Id</th>
+                                <th>Categoria</th>
+                                <th>Negócio</th>
+                                <th>Nº quartos</th>
+                                <th>Endereço</th>
+                                <th>Bairro</th>
+                                <th>Município</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var property in Model) {
+                                <tr>
+                                    <td>@property.Id</td>
+                                    <td>@property.Category.Name</td>
+                                    <td>@property.Business.Name</td>
+                                    <td>@property.Rooms</td>
+                                    <td>@property.Address</td>
+                                    <td>@property.District.Name</td>
+                                    <td>@property.District.City.Name</td>
+                                    <td>@property.District.City.State.Uf</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

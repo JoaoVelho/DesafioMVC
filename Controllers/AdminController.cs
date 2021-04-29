@@ -17,7 +17,12 @@ namespace DesafioMVC.Controllers
         }
 
         public IActionResult Index() {
-            return View();
+            var properties = _database.Properties
+                .Include(prop => prop.Category)
+                .Include(prop => prop.Business)
+                .Include(prop => prop.District.City.State)
+                .ToList();
+            return View(properties);
         }
 
         public IActionResult Categories() {
