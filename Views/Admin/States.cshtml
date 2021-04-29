@@ -2,6 +2,31 @@
 @{
     Layout = "_LayoutAdmin";
 }
+
+<script>
+    $(document).ready(function () {
+        $('#state').DataTable({
+            "info": false,
+            "language": {
+                "lengthMenu": "Mostrando _MENU_ registros por página",
+                "zeroRecords": "Desculpa, nada encontrado",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "Nenhum registro disponível",
+                "search": "Buscar:",
+                "paginate": {
+                    "first": "Primeiro",
+                    "last": "Último",
+                    "next": "Próximo",
+                    "previous": "Anterior"
+                }
+            },
+            "dom": "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6 text-right'l>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        });
+    });
+</script>
+
 <div class="card">
     <div class="card-header card-header-primary">
         <div class="row">
@@ -19,7 +44,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="state">
                 <thead class="text-primary">
                     <tr>
                         <th>Id</th>
