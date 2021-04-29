@@ -40,7 +40,7 @@ The above copyright notice and this permission notice shall be included in all c
 
         Tip 2: you can also add an image using data-image tag
     -->
-			<div class="logo"><a href="#" class="simple-text logo-normal">
+			<div class="logo"><a asp-controller="Home" asp-action="Index" class="simple-text logo-normal">
 					Imobiliária
 				</a></div>
 			<div class="sidebar-wrapper">
@@ -124,7 +124,9 @@ The above copyright notice and this permission notice shall be included in all c
 									<a class="dropdown-item" href="#">Profile</a>
 									<a class="dropdown-item" href="#">Settings</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="#">Log out</a>
+									<form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+										<button type="submit" class="dropdown-item btn btn-link text-lowercase text-capitalize" style="width: 94%;">Logout</button>
+									</form>
 								</div>
 							</li>
 						</ul>
