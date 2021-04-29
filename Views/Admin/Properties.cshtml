@@ -27,6 +27,13 @@
     });
 </script>
 
+@if (TempData.ContainsKey("Error") && TempData["Error"].Equals(true)) {
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Não foi possível deletar o imóvel, pois ele está associado a outro item!</strong> - Clique no x para fechar esse aviso
+    </div>
+}
+
 <div class="card">
     <div class="card-header card-header-primary">
         <div class="row">

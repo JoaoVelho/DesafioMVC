@@ -64,7 +64,7 @@ namespace DesafioMVC.Controllers
                     _database.Remove(property);
                     _database.SaveChanges();
                 } catch (Exception) {
-                    return View("../Admin/DeleteError");
+                    TempData["Error"] = true;
                 }
             }
             return RedirectToAction("Properties", "Admin");
