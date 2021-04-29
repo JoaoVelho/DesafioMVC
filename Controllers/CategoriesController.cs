@@ -3,10 +3,12 @@ using System.Linq;
 using DesafioMVC.Data;
 using DesafioMVC.DTO;
 using DesafioMVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioMVC.Controllers
 {
+    [Authorize(Policy = "ADM")]
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _database;

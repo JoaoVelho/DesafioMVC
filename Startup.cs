@@ -38,6 +38,10 @@ namespace DesafioMVC
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddAuthorization(options => options.AddPolicy("ADM", policy => {
+                policy.RequireClaim("Cargo", "Admin");
+            }));
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

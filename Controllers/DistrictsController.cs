@@ -3,11 +3,13 @@ using System.Linq;
 using DesafioMVC.Data;
 using DesafioMVC.DTO;
 using DesafioMVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DesafioMVC.Controllers
 {
+    [Authorize(Policy = "ADM")]
     public class DistrictsController : Controller
     {
         private readonly ApplicationDbContext _database;

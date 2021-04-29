@@ -1,11 +1,13 @@
 using System.Linq;
 using DesafioMVC.Data;
 using DesafioMVC.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DesafioMVC.Controllers
 {
+    [Authorize(Policy = "ADM")]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _database;
