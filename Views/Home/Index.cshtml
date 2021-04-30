@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
+@model DesafioMVC.DTO.SearchDataDTO
 
 <div id="carouselExampleSlidesOnly" class="carousel slide full-width" data-ride="carousel">
     <div class="carousel-inner">
@@ -14,7 +15,115 @@
         </div>
     </div>
 </div>
-@if (!SignInManager.IsSignedIn(User)) {
+@if (SignInManager.IsSignedIn(User)) {
+    <br>
+    <h3 class="text-primary">Busca detalhada</h3><br>
+    <form class="form-horizontal" asp-controller="Home" asp-action="Search" method="POST">
+        <div class="row">
+            <div class="col-md col-12 mb-md-0 mb-2">
+                <label asp-for="CategoryId"><strong>Categoria</strong></label>
+                <select asp-for="CategoryId" class="form-control" asp-items='@(new SelectList(@ViewBag.Categories, "Id", "Name"))'>
+                    <option value="">Qualquer categoria</option>
+                </select>
+            </div>
+            <div class="col-md col-12 mb-md-0 mb-2">
+                <label asp-for="BusinessId"><strong>Negócio</strong></label>
+                <select asp-for="BusinessId" class="form-control" asp-items='@(new SelectList(@ViewBag.Businesses, "Id", "Name"))'>
+                    <option value="">Qualquer negócio</option>
+                </select>
+            </div>
+            <div class="col-md col-12 mb-2">
+                <label asp-for="Rooms"><strong>Nº de quartos</strong></label>
+                <input type="number" asp-for="Rooms" class="form-control" placeholder="Qualquer quantidade">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-2 col-md-3 col-12 mb-md-0 mb-2">
+                <label asp-for="StateId"><strong>Estado</strong></label>
+                    <select asp-for="StateId" class="form-control" id="state" asp-items='@(new SelectList(@ViewBag.States, "Id", "Uf"))'>
+                        <option value="">Qualquer estado</option>
+                </select>
+            </div>
+            <div class="col-xl-5 col-md-4 col-12 mb-md-0 mb-2">
+                <label asp-for="CityId"><strong>Município</strong></label>
+                <select asp-for="CityId" class="form-control" id="city">
+                    <option value="">Qualquer município</option>
+                </select>
+            </div>
+            <div class="col-md-5 col-12">
+                <label asp-for="DistrictId"><strong>Bairro</strong></label>
+                <select asp-for="DistrictId" class="form-control" id="district">
+                    <option value="">Qualquer bairro</option>
+                </select>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col text-right">
+                <button class="btn btn-outline-primary text-right">Buscar</button>
+            </div>
+        </div>
+    </form>
+    <script>
+        const citySelect = document.getElementById("city")
+        const districtSelect = document.getElementById("district")
+
+        async function citiesFetch() {
+            const stateSelect = document.getElementById("state")
+
+            if (stateSelect.value !== "0") {
+                const stateId = stateSelect.value
+
+                const res = await fetch(`https://localhost:5001/Cities/CitiesByState/${stateId}`)
+                const cities = await res.json()
+
+                let citySelectOptions = '<option value="">Qualquer município</option>'
+                cities.forEach(city => {
+                    let option = `<option value="${city.id}">${city.name}</option>`
+                    citySelectOptions = citySelectOptions.concat(option)
+                })
+
+                citySelect.innerHTML = citySelectOptions
+            }
+
+            stateSelect.addEventListener("change", async event => {
+                const stateId = event.target.value
+
+                const res = await fetch(`https://localhost:5001/Cities/CitiesByState/${stateId}`)
+                const cities = await res.json()
+
+                const districtSelectOption = '<option value="">Qualquer bairro</option>'
+                let citySelectOptions = '<option value="">Qualquer município</option>'
+                cities.forEach(city => {
+                    let option = `<option value="${city.id}">${city.name}</option>`
+                    citySelectOptions = citySelectOptions.concat(option)
+                })
+
+                citySelect.innerHTML = citySelectOptions
+                districtSelect.innerHTML = districtSelectOption
+            })
+        }
+
+        function districtsFetch() {
+            citySelect.addEventListener("change", async event => {
+                const cityId = event.target.value
+
+                const res = await fetch(`https://localhost:5001/Districts/DistrictsByState/${cityId}`)
+                const districts = await res.json()
+
+                let districtSelectOptions = '<option value="">Qualquer bairro</option>'
+                districts.forEach(district => {
+                    let option = `<option value="${district.id}">${district.name}</option>`
+                    districtSelectOptions = districtSelectOptions.concat(option)
+                })
+
+                districtSelect.innerHTML = districtSelectOptions
+            })
+        }
+
+        citiesFetch()
+        districtsFetch()
+    </script>
+} else {
     <div class="jumbotron" style="background-color: #fff;">
         <h1 class="display-3">Imobiliaria</h1>
         <p class="lead">
@@ -25,7 +134,8 @@
         <hr class="my-4">
         <p>Faça login para conhecer tudo que oferecemos.</p>
         <p class="lead">
-        <a class="btn btn-primary btn-lg" asp-area="Identity" asp-page="/Account/Login" role="button">Login</a>
+        <a class="btn btn-outline-primary btn-lg" asp-area="Identity" asp-page="/Account/Login" role="button">Login</a>
         </p>
     </div>
 }
+
