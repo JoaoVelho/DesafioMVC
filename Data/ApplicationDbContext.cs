@@ -20,5 +20,12 @@ namespace DesafioMVC.Data
             : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<Property>()
+                .Property<string>("_images").HasColumnName("Images");
+        }
     }
 }

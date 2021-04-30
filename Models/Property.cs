@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace DesafioMVC.Models
 {
     public class Property
@@ -8,5 +10,16 @@ namespace DesafioMVC.Models
         public District District { get; set; }
         public string Address { get; set; }
         public int Rooms { get; set; }
+
+        private static readonly char delimiter = ';';
+        private string _images;
+
+        [NotMapped]
+        public string[] Images {
+            get { return _images.Split(delimiter); } 
+            set {
+                _images = string.Join($"{delimiter}", value);
+            }
+        }
     }
 }
