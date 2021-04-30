@@ -34,7 +34,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 <body class="">
 	<div class="wrapper ">
-		<div class="sidebar" data-color="purple" data-background-color="white">
+		<div class="sidebar" data-color="purple" data-background-color="white" data-image="">
 			<!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -49,12 +49,6 @@ The above copyright notice and this permission notice shall be included in all c
 						<a class="nav-link" asp-controller="Admin" asp-action="Index">
 							<i class="material-icons">dashboard</i>
 							<p>Painel</p>
-						</a>
-					</li>
-					<li class="nav-item ">
-						<a class="nav-link" href="#">
-							<i class="material-icons">person</i>
-							<p>Perfil</p>
 						</a>
 					</li>
 					<li class="nav-item ">
@@ -117,12 +111,11 @@ The above copyright notice and this permission notice shall be included in all c
 									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<i class="material-icons">person</i>
 									<p class="d-lg-none d-md-block">
-										Account
+										Administrador
 									</p>
 								</a>
 								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-									<a class="dropdown-item" href="#">Profile</a>
-									<a class="dropdown-item" href="#">Settings</a>
+									<a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a>
 									<div class="dropdown-divider"></div>
 									<form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
 										<button type="submit" class="dropdown-item btn btn-link text-lowercase text-capitalize" style="width: 94%;">Logout</button>
