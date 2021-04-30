@@ -1,5 +1,3 @@
-@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
 @model DesafioMVC.DTO.SearchDataDTO
 
 <h3 class="text-primary">Busca detalhada</h3><br>
@@ -54,7 +52,9 @@
         @foreach (var property in ViewBag.Properties) {
             <div class="col-xl-4 col-md-6 col-12">
                 <div class="card border-primary mb-3">
-                    <div class="card-header">Header</div>
+                    <div class="card-header">Header
+                        <img src="~/PropImages/@property.Images[0]" alt="imagem">
+                    </div>
                     <div class="card-body">
                         <div class="row">
                             <h4 class="col card-title">@property.District.City.Name</h4>

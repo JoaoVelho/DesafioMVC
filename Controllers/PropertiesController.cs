@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using DesafioMVC.Data;
 using DesafioMVC.DTO;
 using DesafioMVC.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioMVC.Controllers
@@ -12,20 +15,41 @@ namespace DesafioMVC.Controllers
     public class PropertiesController : Controller
     {
         private readonly ApplicationDbContext _database;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public PropertiesController(ApplicationDbContext database) {
+        public PropertiesController(ApplicationDbContext database, IWebHostEnvironment webHostEnvironment) {
             _database = database;
+            _webHostEnvironment = webHostEnvironment;
+        }
+
+        private string[] UploadFile(PropertyDTO tempProperty) {
+            List<string> fileNames = new List<string>();
+            if (tempProperty.Images.Count() != 0) {
+                foreach (var image in tempProperty.Images) {
+                    string uploadDir = Path.Combine(_webHostEnvironment.WebRootPath, "PropImages");
+                    string file = Guid.NewGuid().ToString() + "-" + image.FileName;
+                    fileNames.Add(file);
+                    string filePath = Path.Combine(uploadDir, file);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create)) {
+                        image.CopyTo(fileStream);
+                    }
+                }
+            }
+            return fileNames.ToArray();
         }
 
         [HttpPost]
         public IActionResult Save(PropertyDTO tempProperty) {
             if (ModelState.IsValid) {
+                string[] stringFileName = UploadFile(tempProperty);
+
                 Property property = new Property();
                 property.Category = _database.Categories.First(cat => cat.Id == tempProperty.CategoryId);
                 property.Business = _database.Businesses.First(bus => bus.Id == tempProperty.BusinessId);
                 property.District = _database.Districts.First(dist => dist.Id == tempProperty.DistrictId);
                 property.Address = tempProperty.Address;
                 property.Rooms = (int) tempProperty.Rooms;
+                property.Images = stringFileName;
                 _database.Properties.Add(property);
                 _database.SaveChanges();
                 return RedirectToAction("Properties", "Admin");

@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace DesafioMVC.DTO
 {
@@ -36,5 +38,8 @@ namespace DesafioMVC.DTO
         [Required(ErrorMessage="Número de quartos é obrigatório!")]
         [Range(0, 100, ErrorMessage="Número de quartos deve ser entre {1} e {2}!")]
         public int? Rooms { get; set; }
+
+        [Required]
+        public List<IFormFile> Images { get; set; }
     }
 }

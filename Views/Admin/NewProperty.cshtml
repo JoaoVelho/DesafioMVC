@@ -7,7 +7,7 @@
         <h2 class="card-title">Novo imóvel</h2>
     </div>
     <div class="card-body">    
-        <form class="form-horizontal" asp-controller="Properties" asp-action="Save" method="POST">
+        <form class="form-horizontal" asp-controller="Properties" asp-action="Save" method="POST" enctype="multipart/form-data">
             <input type="hidden" asp-for="Id" value="0">
 
             <label asp-for="CategoryId"><strong>Categoria</strong></label>
@@ -47,6 +47,10 @@
             <label asp-for="Rooms"><strong>Quartos</strong></label>
             <input type="number" asp-for="Rooms" class="form-control" placeholder="Número de quartos">
             <span asp-validation-for="Rooms" class="text-danger"></span><br>
+
+            <label asp-for="Images"><strong>Imagens</strong></label>
+            <input asp-for="Images" class="form-control" multiple>
+            <span asp-validation-for="Images" class="text-danger"></span><br>
 
             <button class="btn btn-success">Cadastrar</button>
         </form>
