@@ -39,7 +39,7 @@ namespace DesafioMVC.DTO
         [Range(0, 100, ErrorMessage="Número de quartos deve ser entre {1} e {2}!")]
         public int? Rooms { get; set; }
 
-        [Required]
+        [Required(ErrorMessage="Imagem é obrigatória!")]
         public List<IFormFile> Images { get; set; }
     }
 }

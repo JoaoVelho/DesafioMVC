@@ -38,6 +38,12 @@
         stateSelect.addEventListener("change", async event => {
             const stateId = event.target.value
 
+            if (stateId === "0") {
+                citySelect.setAttribute("disabled", undefined)
+            } else {
+                citySelect.removeAttribute("disabled")
+            }
+
             const res = await fetch(`https://localhost:5001/Cities/CitiesByState/${stateId}`)
             const cities = await res.json()
 

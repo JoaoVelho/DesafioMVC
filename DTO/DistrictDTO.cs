@@ -13,8 +13,8 @@ namespace DesafioMVC.DTO
         [MinLength(2, ErrorMessage="Nome do bairro muito pequeno!")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage="Cidade é obrigatória!")]
-        [Range(1, Int32.MaxValue, ErrorMessage="Cidade é obrigatória!")]
+        [Required(ErrorMessage="Município é obrigatório!")]
+        [Range(1, Int32.MaxValue, ErrorMessage="Município é obrigatório!")]
         public int CityId { get; set; }
 
         [Required(ErrorMessage="UF é obrigatório!")]

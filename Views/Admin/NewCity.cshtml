@@ -17,7 +17,7 @@
             <span asp-validation-for="StateUf" class="text-danger"></span><br>
 
             <label asp-for="Name"><strong>Município</strong></label>
-            <select asp-for="Name" class="form-control" id="city">
+            <select asp-for="Name" disabled class="form-control" id="city">
                 <option value="" selected>Selecione um município</option>
             </select>
             <span asp-validation-for="Name" class="text-danger"></span><br>
@@ -33,6 +33,8 @@
         
         if (stateSelect.value !== "") {
             const uf = stateSelect.value
+
+            citySelect.removeAttribute("disabled")
             
             const res = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios?orderBy=nome`)
             const cities = await res.json()
@@ -48,6 +50,13 @@
 
         stateSelect.addEventListener("change", async event => {
             const uf = event.target.value
+
+            if (uf === "") {
+                citySelect.setAttribute("disabled", undefined)
+            } else {
+                citySelect.removeAttribute("disabled")
+            }
+
 
             const res = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios?orderBy=nome`)
             const cities = await res.json()

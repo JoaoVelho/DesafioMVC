@@ -29,13 +29,13 @@
             <span asp-validation-for="StateId" class="text-danger"></span><br>
 
             <label asp-for="CityId"><strong>Município</strong></label>
-            <select asp-for="CityId" class="form-control" id="city">
+            <select asp-for="CityId" disabled class="form-control" id="city">
                 <option value="0" selected>Selecione um município</option>
             </select>
             <span asp-validation-for="CityId" class="text-danger"></span><br>
 
             <label asp-for="DistrictId"><strong>Bairro</strong></label>
-            <select asp-for="DistrictId" class="form-control" id="district">
+            <select asp-for="DistrictId" disabled class="form-control" id="district">
                 <option value="0" selected>Selecione um bairro</option>
             </select>
             <span asp-validation-for="DistrictId" class="text-danger"></span><br>
@@ -66,6 +66,8 @@
         if (stateSelect.value !== "0") {
             const stateId = stateSelect.value
 
+            citySelect.removeAttribute("disabled")
+
             const res = await fetch(`https://localhost:5001/Cities/CitiesByState/${stateId}`)
             const cities = await res.json()
 
@@ -80,6 +82,13 @@
 
         stateSelect.addEventListener("change", async event => {
             const stateId = event.target.value
+
+            if (stateId === "0") {
+                citySelect.setAttribute("disabled", undefined)
+                districtSelect.setAttribute("disabled", undefined)
+            } else {
+                citySelect.removeAttribute("disabled")
+            }
 
             const res = await fetch(`https://localhost:5001/Cities/CitiesByState/${stateId}`)
             const cities = await res.json()
@@ -99,6 +108,12 @@
     function districtsFetch() {
         citySelect.addEventListener("change", async event => {
             const cityId = event.target.value
+
+            if (cityId === "0") {
+                districtSelect.setAttribute("disabled", undefined)
+            } else {
+                districtSelect.removeAttribute("disabled")
+            }
 
             const res = await fetch(`https://localhost:5001/Districts/DistrictsByState/${cityId}`)
             const districts = await res.json()

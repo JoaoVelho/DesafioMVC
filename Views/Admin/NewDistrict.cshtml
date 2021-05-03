@@ -17,7 +17,7 @@
             <span asp-validation-for="StateId" class="text-danger"></span><br>
 
             <label asp-for="CityId"><strong>Município</strong></label>
-            <select asp-for="CityId" class="form-control" id="city">
+            <select asp-for="CityId" disabled class="form-control" id="city">
                 <option value="0" selected>Selecione um município</option>
             </select>
             <span asp-validation-for="CityId" class="text-danger"></span><br>
@@ -38,6 +38,8 @@
         if (stateSelect.value !== "0") {
             const stateId = stateSelect.value
 
+            citySelect.removeAttribute("disabled")
+
             const res = await fetch(`https://localhost:5001/Cities/CitiesByState/${stateId}`)
             const cities = await res.json()
 
@@ -52,6 +54,12 @@
 
         stateSelect.addEventListener("change", async event => {
             const stateId = event.target.value
+
+            if (stateId === "0") {
+                citySelect.setAttribute("disabled", undefined)
+            } else {
+                citySelect.removeAttribute("disabled")
+            }
 
             const res = await fetch(`https://localhost:5001/Cities/CitiesByState/${stateId}`)
             const cities = await res.json()
