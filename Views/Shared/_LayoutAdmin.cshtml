@@ -45,45 +45,45 @@ The above copyright notice and this permission notice shall be included in all c
 				</a></div>
 			<div class="sidebar-wrapper">
 				<ul class="nav">
-					<li class="nav-item active  ">
+					<li class="nav-item" id="dashboard">
 						<a class="nav-link" asp-controller="Admin" asp-action="Index">
 							<i class="material-icons">dashboard</i>
 							<p>Painel</p>
 						</a>
 					</li>
-					<li class="nav-item ">
+					<li class="nav-item" id="categories">
 						<a class="nav-link" asp-controller="Admin" asp-action="Categories">
 							<i class="material-icons">content_paste</i>
 							<p>Categorias</p>
 						</a>
 					</li>
-					<li class="nav-item ">
+					<li class="nav-item" id="businesses">
 						<a class="nav-link" asp-controller="Admin" asp-action="Businesses">
 							<i class="material-icons">library_books</i>
 							<p>Negócios</p>
 						</a>
 					</li>
-					<li class="nav-item ">
+					<li class="nav-item" id="states">
 						<a class="nav-link" asp-controller="Admin" asp-action="States">
-							<i class="material-icons">bubble_chart</i>
+							<i class="material-icons">public</i>
 							<p>Estados</p>
 						</a>
 					</li>
-					<li class="nav-item ">
+					<li class="nav-item" id="cities">
 						<a class="nav-link" asp-controller="Admin" asp-action="Cities">
-							<i class="material-icons">location_ons</i>
+							<i class="material-icons">location_on</i>
 							<p>Municípios</p>
 						</a>
 					</li>
-					<li class="nav-item ">
+					<li class="nav-item" id="districts">
 						<a class="nav-link" asp-controller="Admin" asp-action="Districts">
-							<i class="material-icons">notifications</i>
+							<i class="material-icons">location_city</i>
 							<p>Bairros</p>
 						</a>
 					</li>
-					<li class="nav-item ">
+					<li class="nav-item" id="properties">
 						<a class="nav-link" asp-controller="Admin" asp-action="Properties">
-							<i class="material-icons">language</i>
+							<i class="material-icons">maps_home_work</i>
 							<p>Imóveis</p>
 						</a>
 					</li>
@@ -159,5 +159,25 @@ The above copyright notice and this permission notice shall be included in all c
 	<script src="~/js/plugins/arrive.min.js"></script>
 	<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 	<script src="~/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
+
+	<!-- Script para controle da aba ativa -->
+	<script>
+		const url = document.URL.toLowerCase();
+		if (url.includes("categor")) {
+			$("#categories").addClass("active")
+		} else if (url.includes("business")) {
+			$("#businesses").addClass("active")
+		} else if (url.includes("state")) {
+			$("#states").addClass("active")
+		} else if (url.includes("cit")) {
+			$("#cities").addClass("active")
+		} else if (url.includes("district")) {
+			$("#districts").addClass("active")
+		} else if (url.includes("propert")) {
+			$("#properties").addClass("active")
+		} else {
+			$("#dashboard").addClass("active")
+		}
+	</script>
 </body>
 </html>
