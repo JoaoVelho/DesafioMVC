@@ -53,6 +53,15 @@ namespace DesafioMVC.Controllers
             return View(tempSearch);
         }
 
+        public IActionResult Property(int id) {
+            var property = _database.Properties
+                .Include(prop => prop.Category)
+                .Include(prop => prop.Business)
+                .Include(prop => prop.District.City.State)
+                .First(prop => prop.Id == id);
+            return View(property);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

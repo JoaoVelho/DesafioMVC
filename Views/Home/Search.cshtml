@@ -4,13 +4,13 @@
 <form class="form-horizontal" asp-controller="Home" asp-action="Search" method="POST">
     <div class="row">
         <div class="col-md col-12 mb-md-0 mb-2">
-            <label asp-for="CategoryId"><strong>Categoria</strong></label>
+            <label asp-for="CategoryId"><strong>Qual o tipo?</strong></label>
             <select asp-for="CategoryId" class="form-control" asp-items='@(new SelectList(@ViewBag.Categories, "Id", "Name"))'>
-                <option value="">Qualquer categoria</option>
+                <option value="">Qualquer tipo</option>
             </select>
         </div>
         <div class="col-md col-12 mb-md-0 mb-2">
-            <label asp-for="BusinessId"><strong>Negócio</strong></label>
+            <label asp-for="BusinessId"><strong>O que você precisa?</strong></label>
             <select asp-for="BusinessId" class="form-control" asp-items='@(new SelectList(@ViewBag.Businesses, "Id", "Name"))'>
                 <option value="">Qualquer negócio</option>
             </select>
@@ -51,13 +51,11 @@
     <div class="row">
         @foreach (var property in ViewBag.Properties) {
             <div class="col-xl-4 col-md-6 col-12">
-                <div class="card border-primary mb-3">
-                    <div class="card-header">Header
-                        <img src="~/PropImages/@property.Images[0]" alt="imagem">
-                    </div>
+                <div class="card border-primary mb-3" style="width: 20rem;">
+                    <a href="/Home/Property/@property.Id"><img src="~/PropImages/@property.Images[0]" class="card-img-top" alt="imagem" style="height: 210px;"></a>
                     <div class="card-body">
                         <div class="row">
-                            <h4 class="col card-title">@property.District.City.Name</h4>
+                            <h4 class="col card-title"><a class="text-primary" href="/Home/Property/@property.Id" style="text-decoration: none;">@property.District.City.Name</a></h4>
                             <h4 class="col card-title text-right">@property.District.City.State.Uf</h4>
                         </div>
                         <p class="card-text">@property.District.Name</p>
