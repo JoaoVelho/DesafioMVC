@@ -66,10 +66,12 @@
                             <td>@city.Id</td>
                             <td>@city.Name</td>
                             <td>@city.State.Uf</td>
-                            <td>
+                            <td class="td-actions">
                                 <form asp-controller="Cities" asp-action="Delete" method="POST" style="display: inline;">
                                     <input type="hidden" name="id" id="id" value="@city.Id">
-                                    <button class="btn btn-danger">Deletar</button>
+                                    <button class="btn btn-danger">
+                                        <i class="material-icons">close</i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>

@@ -64,12 +64,16 @@
                         <tr>
                             <td>@category.Id</td>
                             <td>@category.Name</td>
-                            <td>
-                                <a class="btn btn-success" href="/Admin/EditCategory/@category.Id">Editar</a> 
+                            <td class="td-actions">
+                                <a class="btn btn-success" href="/Admin/EditCategory/@category.Id">
+                                    <i class="material-icons">edit</i>
+                                </a> 
 
                                 <form asp-controller="Categories" asp-action="Delete" method="POST" style="display: inline;">
                                     <input type="hidden" name="id" id="id" value="@category.Id">
-                                    <button class="btn btn-danger">Deletar</button>
+                                    <button class="btn btn-danger">
+                                        <i class="material-icons">close</i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>

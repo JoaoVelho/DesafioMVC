@@ -66,12 +66,16 @@
                         <tr>
                             <td>@business.Id</td>
                             <td>@business.Name</td>
-                            <td>
-                                <a class="btn btn-success" href="/Admin/EditBusiness/@business.Id">Editar</a> 
+                            <td class="td-actions">
+                                <a class="btn btn-success" href="/Admin/EditBusiness/@business.Id">
+                                    <i class="material-icons">edit</i>
+                                </a> 
 
                                 <form asp-controller="Businesses" asp-action="Delete" method="POST" style="display: inline;">
                                     <input type="hidden" name="id" id="id" value="@business.Id">
-                                    <button class="btn btn-danger">Deletar</button>
+                                    <button class="btn btn-danger">
+                                        <i class="material-icons">close</i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>

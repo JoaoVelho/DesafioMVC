@@ -76,12 +76,16 @@
                             <td>@property.District.Name</td>
                             <td>@property.District.City.Name</td>
                             <td>@property.District.City.State.Uf</td>
-                            <td>
-                                <a class="btn btn-success" href="/Admin/EditProperty/@property.Id">Editar</a> 
+                            <td class="td-actions">
+                                <a class="btn btn-success" href="/Admin/EditProperty/@property.Id">
+                                    <i class="material-icons">edit</i>
+                                </a> 
 
                                 <form asp-controller="Properties" asp-action="Delete" method="POST" style="display: inline;">
                                     <input type="hidden" name="id" id="id" value="@property.Id">
-                                    <button class="btn btn-danger">Deletar</button>
+                                    <button class="btn btn-danger">
+                                        <i class="material-icons">close</i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>
