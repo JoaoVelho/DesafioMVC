@@ -29,13 +29,13 @@
         </div>
         <div class="col-xl-5 col-md-4 col-12 mb-md-0 mb-2">
             <label asp-for="CityId"><strong>Município</strong></label>
-            <select asp-for="CityId" class="form-control" id="city" asp-items='@(new SelectList(@ViewBag.CitiesByState, "Id", "Name"))'>
+            <select asp-for="CityId" disabled class="form-control" id="city" asp-items='@(new SelectList(@ViewBag.CitiesByState, "Id", "Name"))'>
                 <option value="">Qualquer município</option>
             </select>
         </div>
         <div class="col-md-5 col-12">
             <label asp-for="DistrictId"><strong>Bairro</strong></label>
-            <select asp-for="DistrictId" class="form-control" id="district" asp-items='@(new SelectList(@ViewBag.DistrictsByCity, "Id", "Name"))'>
+            <select asp-for="DistrictId" disabled class="form-control" id="district" asp-items='@(new SelectList(@ViewBag.DistrictsByCity, "Id", "Name"))'>
                 <option value="">Qualquer bairro</option>
             </select>
         </div>
@@ -51,7 +51,7 @@
     <div class="row">
         @foreach (var property in ViewBag.Properties) {
             <div class="col-xl-4 col-md-6 col-12">
-                <div class="card border-primary mb-3" style="width: 20rem;">
+                <div class="card border-primary mb-3">
                     <a href="/Home/Property/@property.Id"><img src="~/PropImages/@property.Images[0]" class="card-img-top" alt="imagem" style="height: 210px;"></a>
                     <div class="card-body">
                         <div class="row">
@@ -76,6 +76,13 @@
         stateSelect.addEventListener("change", async event => {
             const stateId = event.target.value
 
+            if (stateId === "") {
+                citySelect.setAttribute("disabled", undefined)
+                districtSelect.setAttribute("disabled", undefined)
+            } else {
+                citySelect.removeAttribute("disabled")
+            }
+
             const res = await fetch(`https://localhost:5001/Cities/CitiesByState/${stateId}`)
             const cities = await res.json()
 
@@ -94,6 +101,12 @@
     function districtsFetch() {
         citySelect.addEventListener("change", async event => {
             const cityId = event.target.value
+
+            if (cityId === "") {
+                districtSelect.setAttribute("disabled", undefined)
+            } else {
+                districtSelect.removeAttribute("disabled")
+            }
 
             const res = await fetch(`https://localhost:5001/Districts/DistrictsByState/${cityId}`)
             const districts = await res.json()
