@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DesafioMVC.Configuration;
 using DesafioMVC.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,15 @@ namespace DesafioMVC.Data
             base.OnModelCreating(builder);
             builder.Entity<Property>()
                 .Property<string>("_images").HasColumnName("Images");
+
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new BusinessConfiguration());
+            builder.ApplyConfiguration(new StateConfiguration());
+            builder.ApplyConfiguration(new CityConfiguration());
+            builder.ApplyConfiguration(new DistrictConfiguration());
+            builder.ApplyConfiguration(new PropertyConfiguration());
+            builder.ApplyConfiguration(new AdminConfiguration());
+            builder.ApplyConfiguration(new AdminClaimConfiguration());
         }
     }
 }
