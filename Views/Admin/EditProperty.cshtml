@@ -1,4 +1,4 @@
-@model DesafioMVC.DTO.PropertyDTO
+@model DesafioMVC.DTO.PropertyEditDTO
 @{
     Layout = "_LayoutAdmin";
 }
@@ -7,7 +7,7 @@
         <h2 class="card-title">Alterar imóvel</h2>
     </div>
     <div class="card-body">    
-        <form class="form-horizontal" asp-controller="Properties" asp-action="Edit" method="POST">
+        <form class="form-horizontal" asp-controller="Properties" asp-action="Edit" method="POST" enctype="multipart/form-data">
             <input type="hidden" asp-for="Id">
 
             <div class="row">
@@ -58,6 +58,10 @@
             <label asp-for="Rooms"><strong>Quartos</strong></label>
             <input type="number" asp-for="Rooms" class="form-control" placeholder="Número de quartos">
             <span asp-validation-for="Rooms" class="text-danger"></span><br>
+
+            <label asp-for="Images"><strong>Imagens</strong></label>
+            <input asp-for="Images" class="form-control" multiple>
+            <br>
 
             <button class="btn btn-success">Alterar</button>
         </form>

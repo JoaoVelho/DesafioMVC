@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Linq;
 using DesafioMVC.Data;
 using DesafioMVC.DTO;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -125,7 +127,7 @@ namespace DesafioMVC.Controllers
                 .Include(prop => prop.Business)
                 .Include(prop => prop.District.City.State)
                 .First(prop => prop.Id == id);
-            PropertyDTO propertyView = new PropertyDTO();
+            PropertyEditDTO propertyView = new PropertyEditDTO();
             propertyView.Id = property.Id;
             propertyView.CategoryId = property.Category.Id;
             propertyView.BusinessId = property.Business.Id;

@@ -7,6 +7,7 @@ using DesafioMVC.DTO;
 using DesafioMVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioMVC.Controllers
@@ -22,10 +23,10 @@ namespace DesafioMVC.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        private string[] UploadFile(PropertyDTO tempProperty) {
+        private string[] UploadFile(List<IFormFile> Images) {
             List<string> fileNames = new List<string>();
-            if (tempProperty.Images.Count() != 0) {
-                foreach (var image in tempProperty.Images) {
+            if (Images.Count() != 0) {
+                foreach (var image in Images) {
                     string uploadDir = Path.Combine(_webHostEnvironment.WebRootPath, "PropImages");
                     string file = Guid.NewGuid().ToString() + "-" + image.FileName;
                     fileNames.Add(file);
@@ -41,7 +42,7 @@ namespace DesafioMVC.Controllers
         [HttpPost]
         public IActionResult Save(PropertyDTO tempProperty) {
             if (ModelState.IsValid) {
-                string[] stringFileName = UploadFile(tempProperty);
+                string[] stringFileNames = UploadFile(tempProperty.Images);
 
                 Property property = new Property();
                 property.Category = _database.Categories.First(cat => cat.Id == tempProperty.CategoryId);
@@ -49,7 +50,7 @@ namespace DesafioMVC.Controllers
                 property.District = _database.Districts.First(dist => dist.Id == tempProperty.DistrictId);
                 property.Address = tempProperty.Address;
                 property.Rooms = (int) tempProperty.Rooms;
-                property.Images = stringFileName;
+                property.Images = stringFileNames;
                 _database.Properties.Add(property);
                 _database.SaveChanges();
                 return RedirectToAction("Properties", "Admin");
@@ -62,14 +63,23 @@ namespace DesafioMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(PropertyDTO tempProperty) {
+        public IActionResult Edit(PropertyEditDTO tempProperty) {
             if (ModelState.IsValid) {
+                string[] stringFileNames = null;
+
+                if (tempProperty.Images != null) {
+                    stringFileNames = UploadFile(tempProperty.Images);
+                }
+
                 var property = _database.Properties.First(prop => prop.Id == tempProperty.Id);
                 property.Category = _database.Categories.First(cat => cat.Id == tempProperty.CategoryId);
                 property.Business = _database.Businesses.First(bus => bus.Id == tempProperty.BusinessId);
                 property.District = _database.Districts.First(dist => dist.Id == tempProperty.DistrictId);
                 property.Address = tempProperty.Address;
                 property.Rooms = (int) tempProperty.Rooms;
+                if (stringFileNames != null) {
+                    property.Images = stringFileNames;
+                }
                 _database.SaveChanges();
                 return RedirectToAction("Properties", "Admin");
             } else {
