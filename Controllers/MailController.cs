@@ -2,11 +2,13 @@ using System;
 using System.Threading.Tasks;
 using DesafioMVC.Models;
 using DesafioMVC.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioMVC.Controllers
 {
+    [Authorize]
     public class MailController : Controller
     {
         private readonly IMailService _mailService;

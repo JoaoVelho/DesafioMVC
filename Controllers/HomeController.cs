@@ -9,6 +9,7 @@ using DesafioMVC.Models;
 using DesafioMVC.Data;
 using DesafioMVC.DTO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DesafioMVC.Controllers
 {
@@ -30,6 +31,7 @@ namespace DesafioMVC.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Search(SearchDataDTO tempSearch) {
             var propertiesFiltered = _database.Properties
@@ -53,6 +55,7 @@ namespace DesafioMVC.Controllers
             return View(tempSearch);
         }
 
+        [Authorize]
         public IActionResult Property(int id) {
             var property = _database.Properties
                 .Include(prop => prop.Category)
