@@ -28,11 +28,11 @@ namespace DesafioMVC.Controllers
                 request.Body = body; 
 
                 await _mailService.SendEmailAsync(request);
-                return Ok();
+                return Redirect(Request.Headers["referer"]);
             }
             catch (Exception)
             {
-                throw;
+                return Redirect(Request.Headers["referer"]);
             }
         }
     }
