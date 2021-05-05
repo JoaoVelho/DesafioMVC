@@ -1,5 +1,38 @@
 @model DesafioMVC.Models.Property
 
+@{
+    string subject = Model.District.Name + " - " + Model.District.City.Name;
+    string body = $@"<h1>Informações sobre o imóvel</h1>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Estado</td>
+                                <td>{Model.District.City.State.Name}</td>
+                            </tr>
+                            <tr>
+                                <td>Cidade</td>
+                                <td>{Model.District.City.Name}</td>
+                            </tr>
+                            <tr>
+                                <td>Bairro</td>
+                                <td>{Model.District.Name}</td>
+                            </tr>
+                            <tr>
+                                <td>Negócio</td>
+                                <td>{Model.Business.Name}</td>
+                            </tr>
+                            <tr>
+                                <td>Tipo</td>
+                                <td>{Model.Category.Name}</td>
+                            </tr>
+                            <tr>
+                                <td>Quartos</td>
+                                <td>{Model.Rooms}</td>
+                            </tr>
+                        </tbody>
+                    </table>";
+}
+
 <br>
 <h2 class="text-primary">Detalhes do imóvel</h2>
 <br><br>
@@ -35,6 +68,24 @@
     <div class="card-header"><h4 class="text-uppercase">Imóvel - <span class="text-primary">@Model.District.Name</span></h4></div>
     <div class="card-body">
         <p class="card-text">Imóvel localizado em @Model.Address - @Model.District.City.Name/@Model.District.City.State.Uf</p>
+    </div>
+</div>
+<div class="card border-primary mb-3">
+    <div class="card-header"><h4 class="text-uppercase">E-mail</h4></div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2 col-12 text-center mt-1">
+                <form asp-controller="Mail" asp-action="SendMail" method="POST">
+                    <input type="hidden" name="subject" id="subject" value="@subject">
+                    <input type="hidden" name="body" id="body" value="@body">
+                    <button class="btn btn-outline-info btn-lg">Enviar</button>
+                </form><br>
+            </div>
+            <div class="col-md-10 col-12">
+                <h5>Atenção clientes</h5>
+                <p class="align-text-bottom">Clique em enviar para receber um e-mail com informações sobre o imóvel</p>
+            </div>
+        </div>
     </div>
 </div>
 <div class="card border-primary mb-3">

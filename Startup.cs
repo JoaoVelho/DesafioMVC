@@ -12,6 +12,8 @@ using DesafioMVC.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using DesafioMVC.Settings;
+using DesafioMVC.Services;
 
 namespace DesafioMVC
 {
@@ -41,6 +43,9 @@ namespace DesafioMVC
             services.AddAuthorization(options => options.AddPolicy("ADM", policy => {
                 policy.RequireClaim("Cargo", "Admin");
             }));
+
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            services.AddTransient<IMailService, MailService>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
