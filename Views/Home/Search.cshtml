@@ -77,6 +77,10 @@
     function citiesFetch() {
         const stateSelect = document.getElementById("state")
 
+        if (stateSelect.value !== "") {
+            citySelect.removeAttribute("disabled")
+        }
+
         stateSelect.addEventListener("change", async event => {
             const stateId = event.target.value
 
@@ -103,6 +107,10 @@
     }
 
     function districtsFetch() {
+        if (citySelect.value !== "") {
+            districtSelect.removeAttribute("disabled")
+        }
+
         citySelect.addEventListener("change", async event => {
             const cityId = event.target.value
 
