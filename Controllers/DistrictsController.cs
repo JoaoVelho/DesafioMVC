@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DesafioMVC.Controllers
 {
-    [Authorize(Policy = "ADM")]
     public class DistrictsController : Controller
     {
         private readonly ApplicationDbContext _database;
@@ -18,6 +17,7 @@ namespace DesafioMVC.Controllers
             _database = database;
         }
 
+        [Authorize]
         public IActionResult DistrictsByState(int id) {
             var districts = _database.Districts
                 .Include(district => district.City)
@@ -26,6 +26,7 @@ namespace DesafioMVC.Controllers
             return Ok(districts);
         }
 
+        [Authorize(Policy = "ADM")]
         [HttpPost]
         public IActionResult Save(DistrictDTO tempDistrict) {
             if (ModelState.IsValid) {
@@ -41,6 +42,7 @@ namespace DesafioMVC.Controllers
             }
         }
 
+        [Authorize(Policy = "ADM")]
         [HttpPost]
         public IActionResult Edit(DistrictDTO tempDistrict) {
             if (ModelState.IsValid) {
@@ -56,6 +58,7 @@ namespace DesafioMVC.Controllers
             }
         }
 
+        [Authorize(Policy = "ADM")]
         [HttpPost]
         public IActionResult Delete(int id) {
             if (id > 0) {
