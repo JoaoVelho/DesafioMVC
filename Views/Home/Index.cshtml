@@ -80,9 +80,10 @@
             stateSelect.addEventListener("change", async event => {
                 const stateId = event.target.value
 
+                districtSelect.setAttribute("disabled", undefined)
+                
                 if (stateId === "") {
                     citySelect.setAttribute("disabled", undefined)
-                    districtSelect.setAttribute("disabled", undefined)
                 } else {
                     citySelect.removeAttribute("disabled")
                 }
