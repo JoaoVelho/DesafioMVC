@@ -66,12 +66,13 @@ namespace DesafioMVC.Migrations
             migrationBuilder.InsertData(
                 table: "Properties",
                 columns: new[] { "Id", "Address", "BusinessId", "CategoryId", "DistrictId", "Rooms", "Images" },
-                values: new object[] { 1, "Av Jorge Jorgin, nº 123", 1, 1, 1, 4, "a318311d-b217-410b-becb-8a3e35ee92c8-download.jpg;651d8799-5abe-4716-a7dc-979b43c8f575-MicrosoftTeams-image.png" });
-
-            migrationBuilder.InsertData(
-                table: "Properties",
-                columns: new[] { "Id", "Address", "BusinessId", "CategoryId", "DistrictId", "Rooms", "Images" },
-                values: new object[] { 2, "Rua Joaquim Verdura, nº 444", 2, 2, 2, 2, "9577a4e7-9918-42d3-a5b4-26035780b056-home3.jpg" });
+                values: new object[,]
+                {
+                    { 1, "Av Jorge Jorgin, nº 123", 1, 1, 1, 4, "db593cb0-0512-4f8d-ab7b-035ee76d2a63-apt1.jpg" },
+                    { 4, "Rua São João Joaquim, nº 2", 1, 2, 1, 3, "b54b0af3-57c6-4858-a772-ed2953ed511d-casa3.jpg;594b4eff-0e47-41ca-9818-f81f53747ea2-casa4.jpg" },
+                    { 2, "Rua Joaquim Verdura, nº 444", 2, 2, 2, 2, "82f1291f-f150-4103-b29a-c405f318606d-casa1.jpg;68ea92f8-5a06-4cc6-8e37-9d3f6f247f2a-casa2.jpg" },
+                    { 3, "Rua Brasil Brazuca, nº 122", 2, 1, 2, 2, "a33d66ba-d37f-4c84-9888-bde174cfd011-apt2.jpg;c28908e4-8847-46f1-904e-e885829cadc6-apt3.jpg;6f4e385e-ffdf-4c9c-91d4-9c0d940d505d-apt4.jpg" }
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -90,6 +91,16 @@ namespace DesafioMVC.Migrations
                 table: "Properties",
                 keyColumn: "Id",
                 keyValue: 2);
+
+            migrationBuilder.DeleteData(
+                table: "Properties",
+                keyColumn: "Id",
+                keyValue: 3);
+
+            migrationBuilder.DeleteData(
+                table: "Properties",
+                keyColumn: "Id",
+                keyValue: 4);
 
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",

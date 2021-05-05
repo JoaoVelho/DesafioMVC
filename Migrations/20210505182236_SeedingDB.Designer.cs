@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DesafioMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210504165837_SeedingDB")]
+    [Migration("20210505182236_SeedingDB")]
     partial class SeedingDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -181,7 +181,7 @@ namespace DesafioMVC.Migrations
                             CategoryId = 1,
                             DistrictId = 1,
                             Rooms = 4,
-                            _images = "a318311d-b217-410b-becb-8a3e35ee92c8-download.jpg;651d8799-5abe-4716-a7dc-979b43c8f575-MicrosoftTeams-image.png"
+                            _images = "db593cb0-0512-4f8d-ab7b-035ee76d2a63-apt1.jpg"
                         },
                         new
                         {
@@ -191,7 +191,27 @@ namespace DesafioMVC.Migrations
                             CategoryId = 2,
                             DistrictId = 2,
                             Rooms = 2,
-                            _images = "9577a4e7-9918-42d3-a5b4-26035780b056-home3.jpg"
+                            _images = "82f1291f-f150-4103-b29a-c405f318606d-casa1.jpg;68ea92f8-5a06-4cc6-8e37-9d3f6f247f2a-casa2.jpg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "Rua Brasil Brazuca, nº 122",
+                            BusinessId = 2,
+                            CategoryId = 1,
+                            DistrictId = 2,
+                            Rooms = 2,
+                            _images = "a33d66ba-d37f-4c84-9888-bde174cfd011-apt2.jpg;c28908e4-8847-46f1-904e-e885829cadc6-apt3.jpg;6f4e385e-ffdf-4c9c-91d4-9c0d940d505d-apt4.jpg"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "Rua São João Joaquim, nº 2",
+                            BusinessId = 1,
+                            CategoryId = 2,
+                            DistrictId = 1,
+                            Rooms = 3,
+                            _images = "b54b0af3-57c6-4858-a772-ed2953ed511d-casa3.jpg;594b4eff-0e47-41ca-9818-f81f53747ea2-casa4.jpg"
                         });
                 });
 
