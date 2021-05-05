@@ -1,6 +1,8 @@
 @model DesafioMVC.Models.Property
 
 @{
+    ViewData["Title"] = "Imóvel";
+
     string subject = Model.District.Name + " - " + Model.District.City.Name;
     string body = $@"<h1>Informações sobre o imóvel</h1>
                     <table>

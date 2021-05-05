@@ -60,6 +60,13 @@
             <span asp-validation-for="Rooms" class="text-danger"></span><br>
 
             <label asp-for="Images"><strong>Imagens</strong></label>
+            <span 
+                data-toggle="tooltip" 
+                data-placement="right" 
+                title="Qualquer imagem inserida aqui irá substituir as já salvas. Caso não queira alterar as imagens deixe esse campo vazio"
+            >
+                &#x1F6C8;
+            </span>
             <input asp-for="Images" class="form-control" multiple>
             <br>
 
@@ -68,6 +75,10 @@
     </div>
 </div>
 <script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
     const citySelect = document.getElementById("city")
     const districtSelect = document.getElementById("district")
 
