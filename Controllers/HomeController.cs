@@ -29,7 +29,6 @@ namespace DesafioMVC.Controllers
         }
 
         [Authorize]
-        [HttpPost]
         public IActionResult Search(SearchDataDTO tempSearch) {
             var propertiesFiltered = _database.Properties
                 .Include(prop => prop.Category)
