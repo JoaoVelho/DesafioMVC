@@ -74,7 +74,14 @@ namespace DesafioMVC.Controllers
         }
 
         public IActionResult NewCity() {
-            ViewBag.States = _database.States.ToList();
+            var states = _database.States.ToList();
+            ViewBag.States = states;
+
+            if (states.Count() == 0) {
+                TempData["NoState"] = true;
+                return RedirectToAction("Cities", "Admin");
+            }
+
             return View();
         }
 
@@ -86,6 +93,11 @@ namespace DesafioMVC.Controllers
         }
 
         public IActionResult NewDistrict() {
+            if (_database.Cities.ToList().Count() == 0) {
+                TempData["NoCity"] = true;
+                return RedirectToAction("Districts", "Admin");
+            }
+
             ViewBag.States = _database.States.ToList();
             return View();
         }

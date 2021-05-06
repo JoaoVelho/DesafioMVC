@@ -33,6 +33,12 @@
         <strong>Não foi possível deletar o município, pois ele está associado a outro item!</strong> - Clique no x para fechar esse aviso
     </div>
 }
+@if (TempData.ContainsKey("NoState") && TempData["NoState"].Equals(true)) {
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Não é possível cadastrar um município sem um estado cadastrado!</strong> - Clique no x para fechar esse aviso
+    </div>
+}
 
 <div class="card">
     <div class="card-header card-header-primary">

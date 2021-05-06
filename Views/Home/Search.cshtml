@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Busca detalhada";
+    List<Property> properties = ViewBag.Properties;
 }
 
 <h3 class="text-primary">Busca detalhada</h3><br>
@@ -53,6 +54,9 @@
 <hr>
 <div class="container-fluid">
     <div class="row">
+        @if (properties.Count() == 0) {
+            <h2>Nenhum imóvel encontrado...</h2>
+        }
         @foreach (var property in ViewBag.Properties) {
             <div class="col-xl-4 col-md-6 col-12">
                 <div class="card border-primary mb-3">
