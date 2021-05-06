@@ -67,8 +67,8 @@
             >
                 &#x1F6C8;
             </span>
-            <input asp-for="Images" class="form-control" multiple>
-            <br>
+            <input type="file" asp-for="Images" class="form-control" accept=".png, .jpg, .jpeg" multiple>
+            <span asp-validation-for="Images" class="text-danger"></span><br>
 
             <button class="btn btn-success">Alterar</button>
         </form>

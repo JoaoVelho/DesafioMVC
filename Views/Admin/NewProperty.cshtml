@@ -60,7 +60,7 @@
             <span asp-validation-for="Rooms" class="text-danger"></span><br>
 
             <label asp-for="Images"><strong>Imagens</strong></label>
-            <input asp-for="Images" class="form-control" multiple>
+            <input type="file" asp-for="Images" class="form-control" accept=".png, .jpg, .jpeg" multiple>
             <span asp-validation-for="Images" class="text-danger"></span><br>
 
             <button class="btn btn-success">Cadastrar</button>

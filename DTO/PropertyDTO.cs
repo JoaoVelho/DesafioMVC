@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using DesafioMVC.Validation;
 using Microsoft.AspNetCore.Http;
 
 namespace DesafioMVC.DTO
@@ -40,6 +41,7 @@ namespace DesafioMVC.DTO
         public int? Rooms { get; set; }
 
         [Required(ErrorMessage="Imagem é obrigatória!")]
+        [AllowedExtensions(new string[] { ".jpg", ".jpeg", ".png" })]
         public List<IFormFile> Images { get; set; }
     }
 }
